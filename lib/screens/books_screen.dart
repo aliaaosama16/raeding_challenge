@@ -179,19 +179,22 @@ class _BooksScreenState extends State<BooksScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Flexible(
-                                    child: Text(
-                                      // textDirection: TextDirection.rtl,
-                                      books[index]['title'],
-                                      style: TextStyle(
-                                        fontFamily: books[index]['status'] ==
-                                                Status.completed
-                                            ? 'JanaBold'
-                                            : 'JanaRegular',
-                                        fontSize: 16,
-                                        color: books[index]['status'] ==
-                                                Status.completed
-                                            ? const Color(0xFF295BB3)
-                                            : const Color(0xFF767676),
+                                    child: Directionality(
+                                      textDirection: TextDirection.rtl,
+                                      child: Text(
+                                        // textDirection: TextDirection.rtl,
+                                        books[index]['title'],
+                                        style: TextStyle(
+                                          fontFamily: books[index]['status'] ==
+                                                  Status.completed
+                                              ? 'JanaBold'
+                                              : 'JanaRegular',
+                                          fontSize: 16,
+                                          color: books[index]['status'] ==
+                                                  Status.completed
+                                              ? const Color(0xFF295BB3)
+                                              : const Color(0xFF767676),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -344,19 +347,21 @@ class _BooksScreenState extends State<BooksScreen> {
                                   Flexible(
                                     // width:
                                     //     MediaQuery.of(context).size.width * 0.5,
-                                    child: Text(
-                                      // textDirection: TextDirection.rtl,
-                                      books[index]['title'],
-                                      style: TextStyle(
-                                        fontFamily: books[index]['status'] ==
-                                                Status.completed
-                                            ? 'JanaBold'
-                                            : 'JanaRegular',
-                                        fontSize: 16,
-                                        color: books[index]['status'] ==
-                                                Status.completed
-                                            ? const Color(0xFF295BB3)
-                                            : const Color(0xFF767676),
+                                    child: Directionality(
+                                      textDirection: TextDirection.rtl,
+                                      child: Text(
+                                        books[index]['title'],
+                                        style: TextStyle(
+                                          fontFamily: books[index]['status'] ==
+                                                  Status.completed
+                                              ? 'JanaBold'
+                                              : 'JanaRegular',
+                                          fontSize: 16,
+                                          color: books[index]['status'] ==
+                                                  Status.completed
+                                              ? const Color(0xFF295BB3)
+                                              : const Color(0xFF767676),
+                                        ),
                                       ),
                                     ),
                                   ),
