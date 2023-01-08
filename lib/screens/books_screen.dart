@@ -56,10 +56,12 @@ class _BooksScreenState extends State<BooksScreen> {
     createFileOfPdfUrl().then((f) {
       setState(() {
         if (f.path.isNotEmpty) {
+          // ignore: avoid_print
           print('book is ready');
           bookISReady = true;
           remotePDFpath = f.path;
         } else {
+          // ignore: avoid_print
           print('book is not ready');
           bookISReady = false;
         }
@@ -165,7 +167,6 @@ class _BooksScreenState extends State<BooksScreen> {
                 ),
                 color: Colors.white,
               ),
-              //padding: const EdgeInsets.all(8.0),
               child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: books.length,
@@ -178,211 +179,44 @@ class _BooksScreenState extends State<BooksScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Flexible(
-                                    child: Directionality(
-                                      textDirection: TextDirection.rtl,
-                                      child: Text(
-                                        // textDirection: TextDirection.rtl,
-                                        books[index]['title'],
-                                        style: TextStyle(
-                                          fontFamily: books[index]['status'] ==
-                                                  Status.completed
-                                              ? 'JanaBold'
-                                              : 'JanaRegular',
-                                          fontSize: 16,
-                                          color: books[index]['status'] ==
-                                                  Status.completed
-                                              ? const Color(0xFF295BB3)
-                                              : const Color(0xFF767676),
-                                        ),
-                                      ),
-                                    ),
+                                  BookTitle(
+                                    title: books[index]['title'],
+                                    status: books[index]['status'],
                                   ),
-                                  SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.1,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => PDFScreen(
-                                            path: remotePDFpath,
-                                            name: remotePDFpath.substring(
-                                                remotePDFpath.lastIndexOf('/') +
-                                                    1),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Container(
-                                      height:
-                                          MediaQuery.of(context).size.width *
-                                              0.5,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.5,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: const Color(
-                                              0XFFFDB400), //Color(0xFFEBEBEB),
-                                          width: 10,
-                                        ),
-                                        color: const Color(0xFF295BB3),
-                                        borderRadius: BorderRadius.circular(
-                                            MediaQuery.of(context).size.width *
-                                                0.25),
-                                      ),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: const Color(0xFFEBEBEB),
-                                            width: 10,
-                                          ),
-                                          color: const Color(0xFF295BB3),
-                                          borderRadius: BorderRadius.circular(
-                                              MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.25),
-                                        ),
-                                        child: Center(
-                                          child: Image.asset(
-                                            'assets/icons/book.png',
-                                            width: double.infinity,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                  const RowSpacer(),
+                                  BookContainer(
+                                      filePath: remotePDFpath,
+                                      status: books[index]['status']),
                                 ],
                               ),
                               if (index != books.length - 1)
                                 Transform(
                                   alignment: Alignment.center,
                                   transform: Matrix4.rotationY(math.pi),
-                                  child: Container(
-                                    margin: const EdgeInsets.only(top: 0),
-                                    height:
-                                        MediaQuery.of(context).size.width * 0.5,
-                                    child: books[index]['status'] ==
-                                            Status.completed
-                                        ? Image.asset(
-                                            'assets/icons/path_left_colored.png',
-                                            width: double.infinity,
-                                          )
-                                        : Image.asset(
-                                            'assets/icons/path_left_not_colored.png',
-                                            width: double.infinity,
-                                          ),
-                                  ),
+                                  child: LinkedLine(
+                                      status: books[index]['status']),
                                 ),
                             ],
                           )
                         : Column(
                             children: [
                               Row(
-                                //mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => PDFScreen(
-                                            path: remotePDFpath,
-                                            name: remotePDFpath.substring(
-                                                remotePDFpath.lastIndexOf('/') +
-                                                    1),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Container(
-                                      height:
-                                          MediaQuery.of(context).size.width *
-                                              0.5,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.5,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: const Color(
-                                              0XFFFDB400), //Color(0xFFEBEBEB),
-                                          width: 10,
-                                        ),
-                                        color: const Color(0xFF295BB3),
-                                        borderRadius: BorderRadius.circular(
-                                            MediaQuery.of(context).size.width *
-                                                0.25),
-                                      ),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: const Color(0xFFEBEBEB),
-                                            width: 10,
-                                          ),
-                                          color: const Color(0xFF295BB3),
-                                          borderRadius: BorderRadius.circular(
-                                              MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.25),
-                                        ),
-                                        child: Center(
-                                          child: Image.asset(
-                                            'assets/icons/book.png',
-                                            width: double.infinity,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.1,
-                                  ),
-                                  Flexible(
-                                    // width:
-                                    //     MediaQuery.of(context).size.width * 0.5,
-                                    child: Directionality(
-                                      textDirection: TextDirection.rtl,
-                                      child: Text(
-                                        books[index]['title'],
-                                        style: TextStyle(
-                                          fontFamily: books[index]['status'] ==
-                                                  Status.completed
-                                              ? 'JanaBold'
-                                              : 'JanaRegular',
-                                          fontSize: 16,
-                                          color: books[index]['status'] ==
-                                                  Status.completed
-                                              ? const Color(0xFF295BB3)
-                                              : const Color(0xFF767676),
-                                        ),
-                                      ),
-                                    ),
+                                  BookContainer(
+                                      filePath: remotePDFpath,
+                                      status: books[index]['status']),
+                                  const RowSpacer(),
+                                  BookTitle(
+                                    title: books[index]['title'],
+                                    status: books[index]['status'],
                                   ),
                                 ],
                               ),
                               if (index != books.length - 1)
-                                Container(
-                                  margin: const EdgeInsets.only(top: 0),
-                                  height:
-                                      MediaQuery.of(context).size.width * 0.5,
-                                  child:
-                                      books[index]['status'] == Status.completed
-                                          ? Image.asset(
-                                              'assets/icons/path_left_colored.png',
-                                              width: double.infinity,
-                                            )
-                                          : Image.asset(
-                                              'assets/icons/path_left_not_colored.png',
-                                              width: double.infinity,
-                                            ),
-                                )
+                                LinkedLine(status: books[index]['status'])
                             ],
                           );
                   }),
@@ -390,65 +224,135 @@ class _BooksScreenState extends State<BooksScreen> {
           ],
         ),
       ),
+    );
+  }
+}
 
-      //   Center(child: Builder(
-      //     builder: (BuildContext context) {
-      //       return Column(
-      //         children: <Widget>[
-      //           TextButton(
-      //             child: const Text("الكتاب الاول"),
-      //             onPressed: () {
-      //               if (remotePDFpath.isNotEmpty) {
-      //                 Navigator.push(
-      //                   context,
-      //                   MaterialPageRoute(
-      //                     builder: (context) => PDFScreen(
-      //                       path: remotePDFpath,
-      //                       name: remotePDFpath
-      //                           .substring(remotePDFpath.lastIndexOf('/') + 1),
-      //                     ),
-      //                   ),
-      //                 );
-      //               } else {
-      //                 // loading circle
-      //                 showDialog(
-      //                   context: context,
-      //                   builder: (context) => const Center(
-      //                     child: CircularProgressIndicator(),
-      //                   ),
-      //                 );
-      //                 //Navigator.of(context).pop();
-      //               }
-      //             },
-      //           ),
-      //           TextButton(
-      //             child: const Text("الكتاب الثاني"),
-      //             onPressed: () {
-      //               if (remotePDFpath.isNotEmpty) {
-      //                 Navigator.push(
-      //                   context,
-      //                   MaterialPageRoute(
-      //                     builder: (context) => PDFScreen(
-      //                       path: remotePDFpath,
-      //                       name: remotePDFpath
-      //                           .substring(remotePDFpath.lastIndexOf('/') + 1),
-      //                     ),
-      //                   ),
-      //                 );
-      //               } else {
-      //                 showDialog(
-      //                     context: context,
-      //                     builder: (context) => const Center(
-      //                           child: CircularProgressIndicator(),
-      //                         ));
-      //               }
-      //             },
-      //           ),
-      //         ],
-      //       );
-      //     },
-      //   )),
-      // ),
+class BookContainer extends StatelessWidget {
+  final String filePath;
+  final Status status;
+  const BookContainer({Key? key, required this.filePath, required this.status})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        // ignore: avoid_print
+        print('remotePDFpath is $filePath');
+        if (filePath.isEmpty) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('waiting for downloading'),
+            ),
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PDFScreen(
+                path: filePath,
+                name: filePath.substring(filePath.lastIndexOf('/') + 1),
+              ),
+            ),
+          );
+        }
+      },
+      child: Container(
+        height: MediaQuery.of(context).size.width * 0.4,
+        width: MediaQuery.of(context).size.width * 0.4,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: status == Status.completed
+                ? const Color(0XFFFDB400)
+                : const Color(0xFFEBEBEB),
+            width: 10,
+          ),
+          color: status == Status.completed
+              ? const Color(0xFFFFFFFF)
+              : const Color(0xFF295BB3),
+          borderRadius:
+              BorderRadius.circular(MediaQuery.of(context).size.width * 0.2),
+        ),
+        child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: const Color(0xFFEBEBEB),
+                width: 10,
+              ),
+              color: status == Status.completed
+                  ? const Color(0xFF295BB3)
+                  : const Color(0xFFFFFFFF),
+              borderRadius: BorderRadius.circular(
+                  MediaQuery.of(context).size.width * 0.2),
+            ),
+            child: Center(
+              child: Image.asset(
+                'assets/icons/book.png',
+                width: double.infinity,
+              ),
+            ) //:Center(child: CircularProgressIndicator()),
+            ),
+      ),
+    );
+  }
+}
+
+class BookTitle extends StatelessWidget {
+  final String title;
+  final Status status;
+
+  const BookTitle({super.key, required this.title, required this.status});
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Text(
+          title,
+          style: TextStyle(
+            fontFamily: status == Status.completed ? 'JanaBold' : 'JanaRegular',
+            fontSize: 16,
+            color: status == Status.completed
+                ? const Color(0xFF6687C2)
+                : const Color(0xFF767676),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class LinkedLine extends StatelessWidget {
+  final Status status;
+  const LinkedLine({Key? key, required this.status}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 0),
+      height: MediaQuery.of(context).size.width * 0.5,
+      child: status == Status.completed
+          ? Image.asset(
+              'assets/icons/path_left_colored.png',
+              width: double.infinity,
+            )
+          : Image.asset(
+              'assets/icons/path_left_not_colored.png',
+              width: double.infinity,
+            ),
+    );
+  }
+}
+
+class RowSpacer extends StatelessWidget {
+  const RowSpacer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.1,
     );
   }
 }
